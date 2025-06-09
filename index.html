@@ -6,6 +6,7 @@
   <style>
     html, body {
       margin: 0;
+      padding: 0;
       height: 100%;
       overflow: hidden;
       background: black;
@@ -14,13 +15,19 @@
       text-align: center;
     }
 
-    .center-image {
-      position: fixed;
-      width: 30vmin;
-      height: 30vmin;
-      z-index: -1;
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .chelsea-float {
+      position: absolute;
+      width: 25vmin;
+      height: 25vmin;
+      opacity: 0.7;
       animation: spin 10s linear infinite, pulse 2s ease-in-out infinite;
-      opacity: 0.6;
+      transition: top 1.5s ease, left 1.5s ease;
     }
 
     @keyframes spin {
@@ -35,13 +42,17 @@
 
     h1 {
       font-size: 2.5em;
-      margin-top: 15vh;
+      margin-top: 12vh;
       animation: flash 1s infinite;
+      z-index: 1;
+      position: relative;
     }
 
     #timer {
       font-size: 2em;
       margin-top: 20px;
+      position: relative;
+      z-index: 1;
     }
 
     @keyframes flash {
@@ -62,20 +73,22 @@
                   radial-gradient(circle, rgba(255,255,255,0.1) 10%, transparent 11%);
       background-size: 10% 10%;
       animation: rave 0.2s infinite;
-      z-index: -2;
+      z-index: 0;
     }
 
     @keyframes rave {
-      0%   { filter: hue-rotate(0deg); }
+      0% { filter: hue-rotate(0deg); }
       100% { filter: hue-rotate(360deg); }
     }
   </style>
 </head>
 <body>
-  <img src="IMG_5652.jpeg" id="chelsea-img" class="center-image" alt="Chelsea">
-  <div class="rave-lights"></div>
-  <h1>Chelsea has been single for:</h1>
-  <div id="timer">Loading...</div>
+  <div class="container">
+    <img src="IMG_5652.jpeg" id="chelsea" class="chelsea-float" alt="Chelsea">
+    <div class="rave-lights"></div>
+    <h1>Chelsea has been single for:</h1>
+    <div id="timer">Loading...</div>
+  </div>
 
   <!-- Funny music autoplay -->
   <audio autoplay loop>
@@ -86,30 +99,29 @@
   <script>
     const startDate = new Date('2025-06-09T00:00:00');
     const timerElement = document.getElementById('timer');
+    const chelsea = document.getElementById('chelsea');
 
     function updateTimer() {
       const now = new Date();
       const diff = now - startDate;
-
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
-
       timerElement.textContent = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
     }
 
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // Flying Chelsea logic
-    const chelseaImg = document.getElementById('chelsea-img');
-
+    // Move Chelsea around screen every 2 seconds
     function moveChelsea() {
-      const x = Math.random() * (window.innerWidth - 150);
-      const y = Math.random() * (window.innerHeight - 150);
-      chelseaImg.style.left = `${x}px`;
-      chelseaImg.style.top = `${y}px`;
+      const containerWidth = window.innerWidth - chelsea.offsetWidth;
+      const containerHeight = window.innerHeight - chelsea.offsetHeight;
+      const x = Math.random() * containerWidth;
+      const y = Math.random() * containerHeight;
+      chelsea.style.left = `${x}px`;
+      chelsea.style.top = `${y}px`;
     }
 
     setInterval(moveChelsea, 2000);
