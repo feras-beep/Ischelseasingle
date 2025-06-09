@@ -14,13 +14,13 @@
       text-align: center;
     }
 
-    .center-image {
+    .background {
       position: fixed;
       width: 30vmin;
       height: 30vmin;
-      z-index: -1;
       animation: spin 10s linear infinite, pulse 2s ease-in-out infinite;
-      opacity: 0.6;
+      z-index: -1;
+      opacity: 0.5;
     }
 
     @keyframes spin {
@@ -102,7 +102,7 @@
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // Flying Chelsea logic
+    // Fly-around logic for Chelsea
     const chelseaImg = document.getElementById('chelsea-img');
 
     function moveChelsea() {
@@ -112,7 +112,7 @@
       chelseaImg.style.top = `${y}px`;
     }
 
-    setInterval(moveChelsea, 2000);
+    setInterval(moveChelsea, 2000); // moves every 2 seconds
     moveChelsea();
   </script>
 </body>
