@@ -14,13 +14,13 @@
       text-align: center;
     }
 
-    .background {
+    .center-image {
       position: fixed;
       width: 30vmin;
       height: 30vmin;
-      animation: spin 10s linear infinite, pulse 2s ease-in-out infinite;
       z-index: -1;
-      opacity: 0.5;
+      animation: spin 10s linear infinite, pulse 2s ease-in-out infinite;
+      opacity: 0.6;
     }
 
     @keyframes spin {
@@ -72,7 +72,7 @@
   </style>
 </head>
 <body>
-  <img src="IMG_5652.jpeg" class="center-image" alt="Chelsea">
+  <img src="IMG_5652.jpeg" id="chelsea-img" class="center-image" alt="Chelsea">
   <div class="rave-lights"></div>
   <h1>Chelsea has been single for:</h1>
   <div id="timer">Loading...</div>
@@ -102,7 +102,7 @@
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // Fly-around logic for Chelsea
+    // Flying Chelsea logic
     const chelseaImg = document.getElementById('chelsea-img');
 
     function moveChelsea() {
@@ -112,7 +112,7 @@
       chelseaImg.style.top = `${y}px`;
     }
 
-    setInterval(moveChelsea, 2000); // moves every 2 seconds
+    setInterval(moveChelsea, 2000);
     moveChelsea();
   </script>
 </body>
