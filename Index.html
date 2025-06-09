@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chelsea's Single Timer</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: black;
+      color: white;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+    }
+
+    .background {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 80vmin;
+      height: 80vmin;
+      transform: translate(-50%, -50%);
+      animation: spin 20s linear infinite, pulse 2s ease-in-out infinite;
+      z-index: -1;
+      opacity: 0.3;
+    }
+
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-top: 15vh;
+      animation: flash 1s infinite;
+    }
+
+    #timer {
+      font-size: 2em;
+      margin-top: 20px;
+    }
+
+    @keyframes flash {
+      0%, 100% { color: red; }
+      25% { color: yellow; }
+      50% { color: lime; }
+      75% { color: cyan; }
+    }
+
+    .rave-lights {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 10%, transparent 11%),
+                  radial-gradient(circle, rgba(255,255,255,0.1) 10%, transparent 11%);
+      background-size: 10% 10%;
+      animation: rave 0.2s infinite;
+      z-index: -2;
+    }
+
+    @keyframes rave {
+      0%   { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <img src="CEE9684F-9486-44D3-8ED6-452676AE94A1.png" class="background" alt="Chelsea">
+  <div class="rave-lights"></div>
+  <h1>Chelsea has been single for:</h1>
+  <div id="timer">Calculating...</div>
+
+  <script>
+    const startDate = new Date(); // today's date
+    const timerElement = document.getElementById('timer');
+
+    function updateTimer() {
+      const now = new Date();
+      const diff = now - startDate;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      timerElement.textContent = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+  </script>
+</body>
+</html>
